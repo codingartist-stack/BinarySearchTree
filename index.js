@@ -16,18 +16,18 @@ function Tree(array) {
 }
 
 function buildTree(array) {
-  //mid
-  //left
-  //right
   array.sort();
+  //remove duplicates
 
-  if (array < 2) return array;
+  if (array < 2) return Node(array);
 
   const mid = Math.floor(array.length / 2);
   let left = array.slice(0, mid);
   let right = array.slice(mid);
 
-  let root = Node(mid);
-  root.leftChild = buildTree(left);
-  root.rightChild = buildTree(right);
+  let node = Node(mid);
+  node.leftChild = buildTree(left);
+  node.rightChild = buildTree(right);
+
+  return node;
 }
