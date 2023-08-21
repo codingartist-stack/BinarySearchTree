@@ -26,4 +26,8 @@ function buildTree(array) {
   const mid = Math.floor(array.length / 2);
   let left = array.slice(0, mid);
   let right = array.slice(mid);
+
+  let root = Node(mid);
+  root.leftChild = buildTree(left);
+  root.rightChild = buildTree(right);
 }
