@@ -1,8 +1,8 @@
-function TreeNode(data, leftChild = null, rightChild = null) {
+function TreeNode(data, left = null, right = null) {
   return {
     data,
-    leftChild,
-    rightChild,
+    left,
+    right,
   };
 }
 
@@ -16,18 +16,17 @@ function Tree(array) {
 }
 
 function buildTree(array) {
-  array.sort();
   //remove duplicates
 
-  if (array.length < 2) return TreeNode(array);
+  if (array.length < 2) return TreeNode(array[0]);
 
   const mid = Math.floor(array.length / 2);
   let left = array.slice(0, mid);
-  let right = array.slice(mid);
+  let right = array.slice(mid + 1);
 
   let parent = TreeNode(array[mid]);
-  parent.leftChild = buildTree(left);
-  parent.rightChild = buildTree(right);
+  parent.left = buildTree(left);
+  parent.right = buildTree(right);
 
   return parent;
 }
@@ -45,6 +44,10 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
   }
 };
 
-let testArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+let testArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 2, 78];
 
-console.log(JSON.stringify(buildTree(testArray)));
+testArray.sort(function (a, b) {
+  return a - b;
+});
+
+console.log(prettyPrint(buildTree(testArray)));
