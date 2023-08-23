@@ -1,16 +1,10 @@
 function Tree(array) {
-  array.sort(function (a, b) {
+  const removeDuplicates = (arr) => new Float64Array(new Set(arr));
+  const sortedArray = removeDuplicates(array).sort(function (a, b) {
     return a - b;
   });
 
-  for (let i = 0; i < array.length; i++) {
-    if (array[i] === array[i + 1]) {
-      array.splice(i, 1);
-    } else {
-    }
-  }
-
-  const root = buildTree(array);
+  const root = buildTree(sortedArray);
   // rebalance tree
 
   function TreeNode(data, left = null, right = null) {
