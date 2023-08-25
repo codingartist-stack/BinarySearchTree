@@ -81,49 +81,25 @@ function Tree(array) {
     }
   };
 
+  const find = (val, node = root) => {
+    if (node === null) {
+      return null;
+    }
+
+    if (node.data === val) return node;
+
+    if (node.data > val) {
+      return find(val, node.getLeft());
+    } else {
+      return find(val, node.getRight());
+    }
+  };
+
   //delete leaf -> make parent.left/right equal to null
   //delete node with one child -> replace with child
   //delete node with two children -> find the next biggest(right subtree) and replace it with node
-  const deleteNode = (val) => {
-    if (root === null) {
-      return console.log(`Tree is empty`);
-    }
-    if (root.data > val) {
-      root.getLeft() = deleteNode(root.getLeft());
-      return root;
-    } else if (root.getRight() < val) {
-      root.getRight() = deleteNode(root.getRight());
-      return root;
-    }
-
-    if (root.getLeft() === null) {
-      let temp = root.getRight();
-      delete root;
-      return temp;
-    } else if (root.getRight() === null) {
-      let temp = root.getLeft();
-      delete root;
-      return temp;
-    } else {
-      let successorParent = root;
-
-      let successor = root.getRight();
-      while (successor.getLeft() !== null) {
-        successorParent = successor;
-        successor = successor.getLeft();
-      }
-
-      if (successorParent !== root) {
-        successorParent.getLeft() = successor.getRight();
-      } else {
-        successorParent.getRight() = successor.getRight();
-      }
-
-      root.data = successor.data;
-
-      delete successor;
-      return root;
-    }
+  const deleteNode = () => {
+    //call find from here
   };
 
   const prettyPrint = () => {
@@ -133,12 +109,12 @@ function Tree(array) {
   return {
     insert,
     prettyPrint,
-    deleteNode,
+    contains: (val) => find(val) !== null,
   };
 }
 
 let testArray = [7, 55, 88, 22, 9, 5, 7, 9, 67, 6345, 324, 78];
 
 const tree = Tree(testArray);
-tree.deleteNode(5);
+console.log(tree.contains(5));
 console.log(tree.prettyPrint());
