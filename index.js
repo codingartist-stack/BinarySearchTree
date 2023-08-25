@@ -98,8 +98,24 @@ function Tree(array) {
   //delete leaf -> make parent.left/right equal to null
   //delete node with one child -> replace with child
   //delete node with two children -> find the next biggest(right subtree) and replace it with node
-  const deleteNode = () => {
+  const deleteNode = (node) => {
     //call find from here
+    let value = find(node);
+
+    if (value === null) {
+      return null;
+    }
+
+    // console.log(value.getLeft());
+    // console.log(value.getRight());
+
+    if (value.getLeft() === null) {
+      let temp = value.getRight();
+      delete value;
+      return temp;
+    } else {
+      return root;
+    }
   };
 
   const prettyPrint = () => {
@@ -110,6 +126,7 @@ function Tree(array) {
     insert,
     prettyPrint,
     contains: (val) => find(val) !== null,
+    deleteNode,
   };
 }
 
@@ -117,4 +134,5 @@ let testArray = [7, 55, 88, 22, 9, 5, 7, 9, 67, 6345, 324, 78];
 
 const tree = Tree(testArray);
 console.log(tree.contains(5));
+console.log(JSON.stringify(tree.deleteNode(5)));
 console.log(tree.prettyPrint());
