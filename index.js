@@ -98,24 +98,44 @@ function Tree(array) {
   //delete leaf -> make parent.left/right equal to null
   //delete node with one child -> replace with child
   //delete node with two children -> find the next biggest(right subtree) and replace it with node
-  const deleteNode = (node) => {
-    //call find from here
-    let value = find(node);
-
-    if (value === null) {
+  const deleteNode = (val, node = root) => {
+    //find logic
+    if (node === null) {
       return null;
     }
 
-    // console.log(value.getLeft());
-    // console.log(value.getRight());
+    const left = node.getLeft();
+    const right = node.getRight();
 
-    if (value.getLeft() === null) {
-      let temp = value.getRight();
-      delete value;
-      return temp;
-    } else {
-      return root;
+    if (left.data === val) {
+      node.left = null;
+      return node;
     }
+    if (right.data === val) {
+      node.right = null;
+    }
+
+    if (val < node.data) {
+      return deleteNode(val, node.getLeft());
+    } else {
+      return deleteNode(val, node.getRight());
+    }
+
+    // look at left node
+    // null
+    // if (left === null) {
+    // }
+    // found it
+    // if (left.data === val) {
+    //   // delete it!
+    //   left.data = null;
+    //   return node;
+    // }
+
+    // look at right node
+    // null
+    // less than
+    // greater than
   };
 
   const prettyPrint = () => {
