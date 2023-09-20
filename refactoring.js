@@ -16,6 +16,16 @@ function Tree(array) {
     if (arr.length === 0) {
       return null;
     }
+    if (arr.length < 2) {
+      return new Node(arr);
+    }
+    const mid = Math.floor(arr.length / 2);
+    const parent = new Node(arr[mid]);
+
+    parent.left = buildTree(arr.slice(0, mid));
+    parent.right = buildTree(arr.slice(mid + 1));
+
+    return parent;
   }
 
   const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -31,10 +41,38 @@ function Tree(array) {
     }
   };
 
+  let root = buildTree(sortedArray);
+
+  const insert = (val) => {
+    root = insertRecursive(val, root);
+  };
+
+  function insertRecursive(val, node) {
+    if (node == null) {
+      node = new Node(val);
+      return node;
+    }
+
+    if (val < node.data) {
+      node.left = insertRecursive(val, node.left);
+    } else if (val > node.data) {
+      node.right = insertRecursive(val, node.right);
+    }
+
+    return node;
+  }
+
+  insert(10);
+  prettyPrint(root);
+
   return {
     prettyPrint,
+    insert,
   };
 }
 
 let bigArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let smallArray = [2, 4, 6];
+let num = [3];
+
+Tree(bigArray);
