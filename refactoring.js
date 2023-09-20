@@ -45,6 +45,7 @@ function Tree(array) {
 
   const insert = (val) => {
     root = insertRecursive(val, root);
+    prettyPrint(root);
   };
 
   function insertRecursive(val, node) {
@@ -62,8 +63,7 @@ function Tree(array) {
     return node;
   }
 
-  insert(10);
-  prettyPrint(root);
+  //   prettyPrint(root);
 
   return {
     prettyPrint,
@@ -75,4 +75,4 @@ let bigArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let smallArray = [2, 4, 6];
 let num = [3];
 
-Tree(bigArray);
+Tree(bigArray).insert(2);
