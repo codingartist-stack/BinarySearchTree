@@ -12,8 +12,6 @@ function Tree(array) {
     }
   }
 
-  var root = null;
-
   function buildTree(arr) {
     if (arr.length < 1) return null;
     if (arr.length < 2) return new Node(arr[0]);
@@ -30,8 +28,7 @@ function Tree(array) {
     return parent;
   }
 
-  let theTree = buildTree(sortedArray);
-  console.log(JSON.stringify(theTree));
+  let root = buildTree(sortedArray);
 
   const prettyPrint = (node, prefix = '', isLeft = true) => {
     if (node === null) {
@@ -46,12 +43,30 @@ function Tree(array) {
     }
   };
 
+  function insert(val, node = root) {
+    if (node == null) {
+      node == new Node(val);
+      return node;
+    }
+    if (val < node.data) {
+      node.left = insert(val, node.left);
+    } else if (val > node.data) {
+      node.right = insert(val, node.right);
+    }
+  }
+
+  //   console.log(JSON.stringify(theTree));
+  //   console.log(prettyPrint(root));
+
   return {
     prettyPrint,
+    insert,
   };
 }
 
 let bigArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let smallArray = [2, 4, 6];
 
-Tree(bigArray);
+let theTree = Tree(bigArray);
+theTree.prettyPrint();
+// theTree.insert(6);
