@@ -21,7 +21,7 @@ function Tree(array) {
           right.insert(val);
         }
       }
-    }
+    };
 
     const isLeaf = () => left === null && right === null;
 
@@ -33,7 +33,7 @@ function Tree(array) {
         if (left.isLeaf()) {
           if (left.data === value) {
             // remove?
-            left = null;
+            console.log('found it!');
           }
           // otherwise the value doesn't exist in this tree, just return
           return;
@@ -46,14 +46,14 @@ function Tree(array) {
         if (right.isLeaf()) {
           if (right.data === value) {
             // remove?
-            right = null;
+            console.log('found it!');
           }
           return;
         } else {
           right.remove(value);
         }
       }
-    }
+    };
 
     const prettyPrint = (prefix = '', isLeft, isRoot = false) => {
       if (right !== null) {
@@ -132,48 +132,48 @@ function Tree(array) {
   //delete leaf -> make parent.left/right equal to null
   //delete node with one child -> replace with child
   //delete node with two children -> find the next biggest(right subtree) and replace it with node
-//  const deleteNode = (val, node = root) => {
-//    //find logic
-//    if (node === null) {
-//      return null;
-//    }
-//
-//    const left = node.getLeft();
-//    const right = node.getRight();
-//
-//    if (left.data === val) {
-//      node.left = null;
-//      return node;
-//    }
-//    if (right.data === val) {
-//      node.right = null;
-//    }
-//
-//    if (val < node.data) {
-//      return deleteNode(val, node.getLeft());
-//    } else {
-//      return deleteNode(val, node.getRight());
-//    }
-//
-//    // look at left node
-//    // null
-//    // if (left === null) {
-//    // }
-//    // found it
-//    // if (left.data === val) {
-//    //   // delete it!
-//    //   left.data = null;
-//    //   return node;
-//    // }
-//
-//    // look at right node
-//    // null
-//    // less than
-//    // greater than
-//  };
+  //  const deleteNode = (val, node = root) => {
+  //    //find logic
+  //    if (node === null) {
+  //      return null;
+  //    }
+  //
+  //    const left = node.getLeft();
+  //    const right = node.getRight();
+  //
+  //    if (left.data === val) {
+  //      node.left = null;
+  //      return node;
+  //    }
+  //    if (right.data === val) {
+  //      node.right = null;
+  //    }
+  //
+  //    if (val < node.data) {
+  //      return deleteNode(val, node.getLeft());
+  //    } else {
+  //      return deleteNode(val, node.getRight());
+  //    }
+  //
+  //    // look at left node
+  //    // null
+  //    // if (left === null) {
+  //    // }
+  //    // found it
+  //    // if (left.data === val) {
+  //    //   // delete it!
+  //    //   left.data = null;
+  //    //   return node;
+  //    // }
+  //
+  //    // look at right node
+  //    // null
+  //    // less than
+  //    // greater than
+  //  };
   const remove = (value) => {
     root.remove(value);
-  }
+  };
 
   const prettyPrint = () => {
     root?.prettyPrint('', true, true);
