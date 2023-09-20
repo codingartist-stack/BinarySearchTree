@@ -40,6 +40,7 @@ function Tree(array) {
       prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
     }
   };
+  // do a printTree function to call
 
   let root = buildTree(sortedArray);
 
@@ -63,11 +64,24 @@ function Tree(array) {
     return node;
   }
 
-  //   prettyPrint(root);
+  function deleteNode(val, node = root) {
+    if (node === null) {
+      return node;
+    }
+
+    if (node.data > val) {
+      node.left = deleteNode(val, root.left);
+      return node;
+    } else if (node.data < val) {
+      node.right = deleteNode(val, node.right);
+      return node;
+    }
+  }
 
   return {
     prettyPrint,
     insert,
+    deleteNode,
   };
 }
 
@@ -75,4 +89,4 @@ let bigArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let smallArray = [2, 4, 6];
 let num = [3];
 
-Tree(bigArray).insert(2);
+Tree(smallArray);
