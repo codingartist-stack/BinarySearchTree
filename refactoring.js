@@ -17,7 +17,7 @@ function Tree(array) {
       return null;
     }
     if (arr.length < 2) {
-      return new Node(arr);
+      return new Node(arr[0]);
     }
     const mid = Math.floor(arr.length / 2);
     const parent = new Node(arr[mid]);
@@ -132,6 +132,6 @@ let smallArray = [2, 4, 6];
 let num = [3];
 
 let theTree = Tree(smallArray);
-console.log(JSON.stringify(theTree.root));
+// console.log(JSON.stringify(theTree.root));
 console.log(JSON.stringify(theTree.find(2)));
 theTree.prettyPrint();
