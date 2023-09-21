@@ -28,7 +28,7 @@ function Tree(array) {
     return parent;
   }
 
-  const prettyPrint = (node, prefix = '', isLeft = true) => {
+  const prettyPrint = (node = root, prefix = '', isLeft = true) => {
     if (node === null) {
       return;
     }
@@ -44,44 +44,31 @@ function Tree(array) {
 
   let root = buildTree(sortedArray);
 
-  const insert = (val) => {
-    root = insertRecursive(val, root);
-    console.log(`updated tree: `);
-    prettyPrint(root);
-    return;
-  };
-
-  function insertRecursive(val, node) {
+  const insert = (val, node = root) => {
     if (node == null) {
       node = new Node(val);
       return node;
     }
 
     if (val < node.data) {
-      node.left = insertRecursive(val, node.left);
+      node.left = insert(val, node.left);
     } else if (val > node.data) {
-      node.right = insertRecursive(val, node.right);
+      node.right = insert(val, node.right);
     }
 
     return node;
-  }
+  };
 
-  function deleteNode(val) {
-    root = deleteValue(val, root);
-    console.log(`updated tree: `);
-    prettyPrint(root);
-  }
-
-  function deleteValue(val, node) {
+  const remove = (val, node = root) => {
     if (node === null) {
       return node;
     }
 
     if (node.data > val) {
-      node.left = deleteValue(val, node.left);
+      node.left = remove(val, node.left);
       return node;
     } else if (node.data < val) {
-      node.right = deleteValue(val, node.right);
+      node.right = remove(val, node.right);
       return node;
     }
 
@@ -113,14 +100,30 @@ function Tree(array) {
       delete succ;
       return node;
     }
-  }
+  };
 
-  prettyPrint(root);
+  const find = (val, node = root) => {
+    if (node === null) {
+      return node;
+    }
+
+    if (node.data == val) {
+      return node;
+    }
+
+    if (node.data > val) {
+      return find(val, node.left);
+    } else {
+      return find(val, node.right);
+    }
+  };
 
   return {
+    root,
     prettyPrint,
     insert,
-    deleteNode,
+    remove,
+    find,
   };
 }
 
@@ -128,4 +131,7 @@ let bigArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let smallArray = [2, 4, 6];
 let num = [3];
 
-Tree(bigArray).deleteNode(67);
+let theTree = Tree(smallArray);
+console.log(JSON.stringify(theTree.root));
+console.log(JSON.stringify(theTree.find(2)));
+theTree.prettyPrint();
