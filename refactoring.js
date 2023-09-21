@@ -40,7 +40,6 @@ function Tree(array) {
       prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
     }
   };
-  // do a printTree function to call
 
   let root = buildTree(sortedArray);
 
@@ -104,7 +103,8 @@ function Tree(array) {
 
   const find = (val, node = root) => {
     if (node === null) {
-      return node;
+      console.log(`${val} is not found in the tree`);
+      return;
     }
 
     if (node.data == val) {
@@ -154,6 +154,6 @@ let bigArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let smallArray = [2, 4, 6];
 let num = [3];
 
-let theTree = Tree(bigArray);
+let theTree = Tree(smallArray);
 theTree.prettyPrint();
-console.log(theTree.levelOrder());
+theTree.find(3);
