@@ -124,7 +124,20 @@ function Tree(array) {
       return [];
     }
 
-    let queue = [];
+    let values = [];
+    let queue = [node];
+
+    while (queue.length > 0) {
+      const current = queue.shift();
+      values.push(current.data);
+      if (current.left !== null) {
+        queue.push(current.left);
+      }
+      if (current.right !== null) {
+        queue.push(current.right);
+      }
+    }
+    return values;
   };
 
   return {
@@ -141,5 +154,6 @@ let bigArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let smallArray = [2, 4, 6];
 let num = [3];
 
-let theTree = Tree(smallArray);
+let theTree = Tree(bigArray);
 theTree.prettyPrint();
+console.log(theTree.levelOrder());
