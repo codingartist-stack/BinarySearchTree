@@ -140,20 +140,89 @@ function Tree(array) {
     return values;
   };
 
+  const inOrder = (node = root) => {
+    if (node === null) return node;
+
+    //rewrote the level order function to practice writing it.
+
+    let values = [];
+    let queue = [node];
+
+    while (queue.length > 0) {
+      const current = queue.shift();
+      values.push(current.data);
+      if (current.left !== null) {
+        queue.push(current.left);
+      }
+      if (current.right !== null) {
+        queue.push(current.right);
+      }
+    }
+    values.sort(function (a, b) {
+      return a - b;
+    });
+
+    return values;
+  };
+
+  const preOrder = (node = root) => {
+    //depth first appoarch
+    if (node === null) return node;
+
+    const values = [];
+    const stack = [node];
+
+    while (stack.length > 0) {
+      const current = stack.pop();
+      values.push(current.data);
+      if (current.right !== null) {
+        stack.push(current.right);
+      }
+      if (current.left !== null) {
+        stack.push(current.left);
+      }
+    }
+
+    return values;
+  };
+
+  const postOrder = (node = root) => {
+    if (node === null) return node;
+
+    const values = [];
+    const stack = [node];
+
+    while (stack.length > 0) {
+      const current = stack.pop();
+      values.push(current.data);
+      if (current.left !== null) {
+        stack.push(current.left);
+      }
+      if (current.right !== null) {
+        stack.push(current.right);
+      }
+    }
+
+    return values.reverse();
+  };
+
   return {
-    root,
     prettyPrint,
     insert,
     remove,
     find,
     levelOrder,
+    inOrder,
+    preOrder,
+    postOrder,
   };
 }
 
 let bigArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let smallArray = [2, 4, 6];
+let geeksEX = [10, 30, 20, 150, 300, 200, 100];
 let num = [3];
 
-let theTree = Tree(smallArray);
+let theTree = Tree(geeksEX);
 theTree.prettyPrint();
-theTree.find(3);
+console.log(theTree.postOrder());
