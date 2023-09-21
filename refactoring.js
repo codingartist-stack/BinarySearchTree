@@ -118,12 +118,22 @@ function Tree(array) {
     }
   };
 
+  const levelOrder = (node = root) => {
+    // breadth-first level order
+    if (node === null) {
+      return [];
+    }
+
+    let queue = [];
+  };
+
   return {
     root,
     prettyPrint,
     insert,
     remove,
     find,
+    levelOrder,
   };
 }
 
@@ -132,6 +142,4 @@ let smallArray = [2, 4, 6];
 let num = [3];
 
 let theTree = Tree(smallArray);
-// console.log(JSON.stringify(theTree.root));
-console.log(JSON.stringify(theTree.find(2)));
 theTree.prettyPrint();
