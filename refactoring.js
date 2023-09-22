@@ -206,6 +206,10 @@ function Tree(array) {
     return values.reverse();
   };
 
+  const height = (node = root) => {
+    if (node === null) return node;
+  };
+
   return {
     prettyPrint,
     insert,
@@ -215,6 +219,7 @@ function Tree(array) {
     inOrder,
     preOrder,
     postOrder,
+    height,
   };
 }
 
