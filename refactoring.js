@@ -208,6 +208,33 @@ function Tree(array) {
 
   const height = (node = root) => {
     if (node === null) return node;
+
+    let depth = 0;
+    let queue = [];
+
+    queue.push(node);
+    queue.push(null);
+
+    while (queue.length > 0) {
+      let temp = queue.shift();
+      if (temp == null) {
+        depth += 1;
+      }
+
+      if (temp !== null) {
+        if (temp.left !== null) {
+          queue.push(temp.left);
+        }
+        if (temp.right !== null) {
+          queue.push(temp.right);
+        }
+      } else if (queue.length > 0) {
+        queue.push(null);
+      }
+    }
+
+    console.log(`the tree is ${depth} levels deep`);
+    return depth;
   };
 
   return {
@@ -230,4 +257,4 @@ let num = [3];
 
 let theTree = Tree(geeksEX);
 theTree.prettyPrint();
-console.log(theTree.postOrder());
+console.log(theTree.height());
