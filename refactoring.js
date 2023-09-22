@@ -54,7 +54,6 @@ function Tree(array) {
     } else if (val > node.data) {
       node.right = insert(val, node.right);
     }
-
     return node;
   };
 
@@ -233,7 +232,6 @@ function Tree(array) {
       }
     }
 
-    console.log(`the tree is ${depth} levels high`);
     return depth;
   };
 
@@ -262,6 +260,25 @@ function Tree(array) {
     }
   };
 
+  const isBalanced = (node = root) => {
+    if (node == null) {
+      return true;
+    }
+
+    let leftHeight = height(node.left);
+    let rightHeight = height(node.right);
+
+    if (
+      Math.abs(leftHeight - rightHeight) <= 1 &&
+      isBalanced(node.left) == true &&
+      isBalanced(node.right) == true
+    ) {
+      return true;
+    }
+
+    return false;
+  };
+
   return {
     prettyPrint,
     insert,
@@ -273,6 +290,7 @@ function Tree(array) {
     postOrder,
     height,
     depth,
+    isBalanced,
   };
 }
 
@@ -283,4 +301,6 @@ let num = [3];
 
 let theTree = Tree(bigArray);
 theTree.prettyPrint();
-console.log(theTree.depth(324));
+theTree.insert(2);
+theTree.prettyPrint();
+console.log(theTree.isBalanced());
