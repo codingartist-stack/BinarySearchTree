@@ -279,6 +279,33 @@ function Tree(array) {
     return false;
   };
 
+  const reBalance = (node = root) => {
+    if (node == null) {
+      return node;
+    }
+
+    let values = [];
+    let queue = [root];
+
+    while (queue.length > 0) {
+      let current = queue.shift();
+      values.push(current.data);
+      if (current.left !== null) {
+        queue.push(current.left);
+      }
+      if (current.right !== null) {
+        queue.push(current.right);
+      }
+    }
+
+    values.sort(function (a, b) {
+      return a - b;
+    });
+
+    root = buildTree(values);
+    return root;
+  };
+
   return {
     prettyPrint,
     insert,
@@ -291,16 +318,38 @@ function Tree(array) {
     height,
     depth,
     isBalanced,
+    reBalance,
   };
 }
 
-let bigArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+let bigArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67];
 let smallArray = [2, 4, 6];
 let geeksEX = [10, 30, 20, 150, 300, 200, 100];
 let num = [3];
 
 let theTree = Tree(bigArray);
 theTree.prettyPrint();
+console.log(`The tree is balanced: ` + theTree.isBalanced());
+
+console.log(`Level Order: ` + theTree.levelOrder());
+console.log(`PreOrder: ` + theTree.preOrder());
+console.log(`PostOrder: ` + theTree.postOrder());
+console.log(`In Order: ` + theTree.inOrder());
+
 theTree.insert(2);
+theTree.insert(35);
+theTree.insert(42);
+theTree.insert(72);
+theTree.insert(88);
+
 theTree.prettyPrint();
-console.log(theTree.isBalanced());
+console.log(`The tree is balanced: ` + theTree.isBalanced());
+
+theTree.reBalance();
+theTree.prettyPrint();
+console.log(`The tree is balanced: ` + theTree.isBalanced());
+
+console.log(`Level Order: ` + theTree.levelOrder());
+console.log(`PreOrder: ` + theTree.preOrder());
+console.log(`PostOrder: ` + theTree.postOrder());
+console.log(`In Order: ` + theTree.inOrder());
