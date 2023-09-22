@@ -233,8 +233,33 @@ function Tree(array) {
       }
     }
 
-    console.log(`the tree is ${depth} levels deep`);
+    console.log(`the tree is ${depth} levels high`);
     return depth;
+  };
+
+  const depth = (val, node = root) => {
+    if (node === null) return 0;
+
+    let edges = 0;
+    let stack = [root];
+
+    while (stack.length > 0) {
+      let current = stack.shift();
+      if (current == null) {
+        console.log(`${val} is not found in the tree`);
+        return;
+      }
+      if (current.data == val) {
+        return edges;
+      }
+      if (current.data > val) {
+        edges += 1;
+        stack.push(current.left);
+      } else {
+        edges += 1;
+        stack.push(current.right);
+      }
+    }
   };
 
   return {
@@ -247,6 +272,7 @@ function Tree(array) {
     preOrder,
     postOrder,
     height,
+    depth,
   };
 }
 
@@ -255,6 +281,6 @@ let smallArray = [2, 4, 6];
 let geeksEX = [10, 30, 20, 150, 300, 200, 100];
 let num = [3];
 
-let theTree = Tree(geeksEX);
+let theTree = Tree(bigArray);
 theTree.prettyPrint();
-console.log(theTree.height());
+console.log(theTree.depth(324));
